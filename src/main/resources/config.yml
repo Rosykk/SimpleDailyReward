@@ -1,0 +1,88 @@
+# --------------- Database ----------------
+# %player% - converts to player (target) name.
+# %time_left% - shows time left to claim daily reward.
+
+# rules:
+# color codes are supported, for example &a, HEX codes are allowed too.
+# commands needs to be written without the slash char (  /  )
+
+# --------------- Database ----------------
+# Do not use both at the same time.
+
+DATABASE:
+  MONGODB: false
+  MYSQL: false
+CREDENTIALS:
+  USERNAME: ''
+  PASSWORD: ''
+  DATABASE: ''
+  HOST: 127.0.0.1
+  PORT: 3306
+
+# -------------- Language --------------
+
+# CommandAPI messages
+MESSAGE_NOT_ENOUGH_PERMISSIONS: "&cNot enough permissions!"
+MESSAGE_PLAYER_ONLY: "&cThis command can not be performed in console!"
+MESSAGE_CONSOLE_ONLY: "&cThis command can not be performed in game!"
+MESSAGE_RELOAD: "&aSuccessfully reloaded all configurations."
+
+# Permissions
+PERMISSION_ADMIN_ONLY: "reward.admin"
+
+# Basic messages
+MESSAGE_SUCCESS: "&aSuccessfully claimed your &edaily reward"
+MESSAGE_NOT_YET: "&cYou can not claim your daily reward yet. Wait for another %time%."
+MESSAGE_DB_SUCCESS: "&aSuccessfully connected to MySQL."
+MESSAGE_ERROR: "&cError! If you see this message, you probably messed something up in your config.yml"
+MESSAGE_ERROR_MYSQL: "An error has occured while creating tables (MySQL)"
+MESSAGE_ERROR_MONGO: "There was an error "
+MESSAGE_WRONG_ARGS: "&cCorrect usage &7/reward &cor &7/reward <VIP name>"
+
+# -------- Plugin configuration --------
+
+# Prefix
+ENABLE_PREFIX: true
+PREFIX: "&c&lDailyReward &7&l» &r"
+
+# HOUR - player has to wait exactly 24h before claiming another reward
+# DAY - player has to wait until midnight
+TIME_FORMAT: "HOUR"
+
+# Do you want player to wait more than 24h? It works like multiplier. 24 * 1, 24 * 2 et cetera.
+# Works for both formats.
+DAYS_TO_WAIT: 1
+
+# --------------- Rewards --------------
+
+# Basic reward
+DEFAULT_REWARD:
+  PERMISSION: "reward.default"
+  MESSAGE: "You have received your daily reward."
+  COMMANDS:
+    - "eco give %player% 200"
+    - "give %player% coal 2"
+
+# VIP (Amazing) reward
+AMAZING_REWARD:
+  PERMISSION: "reward.amazing"
+  MESSAGE: "You received your premium (Amazing) daily reward."
+  COMMANDS:
+    - "eco give %player% 200"
+    - "give %player% iron_ingot 2"
+
+# VIP (Lion) reward
+LION_REWARD:
+  PERMISSION: "reward.lion"
+  MESSAGE: "You received your premium (Lion) daily reward."
+  COMMANDS:
+    - "eco give %player% 200"
+    - "give %player% gold_ingot 2"
+
+# VIP (Cruel) reward
+CRUEL_REWARD:
+  PERMISSION: "reward.cruel"
+  MESSAGE: "You received your premium (Cruel) daily reward."
+  COMMANDS:
+    - "eco give %player% 200"
+    - "give %player% diamond 2"

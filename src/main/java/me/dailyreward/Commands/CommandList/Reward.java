@@ -49,20 +49,16 @@ public class Reward extends BaseCommand {
 
 				/* Saves a new value to the path (local files)*/
 				if(DB.getLocalFiles()) {
-					config.set("DEFAULT", Time.getTime());
-					config.save();
-				}
-
-				/* Saves a new value to the path (MySQL files)*/
-				if(DB.getMySQL()) {
-					playerMySQL.updateTime("default", Time., player);
-				}
-
-				/* Saves a new value to the path (local files)*/
-				if(DB.getLocalFiles()) {
 					config.set("DEFAULT", Time.getFormat1());
 					config.save();
 				}
+
+				/* Saves a new value to the path (MySQL database)*/
+				if(DB.getMySQL()) playerMySQL.updateTime("default", Time.getFormat1(), player);
+
+				/* Saves a new value to the path (MongoDB bson)*/
+				//if(DB.getLocalFiles()) { }
+
 			} else {
 				long time = (config.getLong("DEFAULT") - System.currentTimeMillis()) / 1000 / 60;
 				Color.sendMessage(plugin.getCfg().getConfigString("MESSAGE_NOT_YET").replace("%time%", Time.getTime(time)), player);

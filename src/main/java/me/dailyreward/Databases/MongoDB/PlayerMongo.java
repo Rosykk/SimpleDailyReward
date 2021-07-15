@@ -9,7 +9,7 @@ import org.bson.Document;
 import java.util.UUID;
 
 @Getter
-public class PlayerData {
+public class PlayerMongo {
 
 	private DailyReward plugin = DailyReward.getInstance();
 	private MongoDB mongoDB = new MongoDB();
@@ -19,7 +19,7 @@ public class PlayerData {
 
 	private Stats time = new Stats();
 
-	public PlayerData(UUID uuid, String playerName) {
+	public PlayerMongo(UUID uuid, String playerName) {
 		this.UUID = uuid;
 		this.playerName = playerName;
 	}

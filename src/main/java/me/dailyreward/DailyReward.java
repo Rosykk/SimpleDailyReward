@@ -12,18 +12,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Getter
 public final class DailyReward extends JavaPlugin {
 
-	@Getter
 	private final long time = System.currentTimeMillis() + 86400000L;
 
 	@Getter
 	private static DailyReward instance;
-	@Getter
 	private CommandFramework framework;
-	@Getter
 	private Config cfg;
-	@Getter
 	private Database db;
 
 	@SneakyThrows
@@ -64,7 +61,7 @@ public final class DailyReward extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-
+		db.getMySQL().disconnect();
 	}
 
 	public String getPrefix() {

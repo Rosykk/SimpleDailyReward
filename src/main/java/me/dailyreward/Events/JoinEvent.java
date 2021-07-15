@@ -3,7 +3,7 @@ package me.dailyreward.Events;
 import me.dailyreward.Configuration.ConfigPlayer;
 import me.dailyreward.Configuration.Yaml;
 import me.dailyreward.DailyReward;
-import me.dailyreward.Databases.MySQL.PlayerData;
+import me.dailyreward.Databases.MySQL.PlayerMySQL;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class JoinEvent implements Listener {
 	private DailyReward plugin;
 	private Yaml config;
 
-	private PlayerData playerData;
+	private PlayerMySQL playerData;
 
 	public JoinEvent(DailyReward plugin) {
 		this.plugin = plugin;
@@ -59,7 +59,7 @@ public class JoinEvent implements Listener {
 		Player player = event.getPlayer();
 
 		if(plugin.getCfg().getConfigBool("DATABASE.MYSQL")) {
-			playerData = new PlayerData();
+			playerData = new PlayerMySQL();
 
 			playerData.insertPlayer(player);
 		}

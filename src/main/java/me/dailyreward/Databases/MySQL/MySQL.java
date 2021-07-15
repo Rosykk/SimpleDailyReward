@@ -46,16 +46,19 @@ public class MySQL {
 	public void createTables() throws SQLException {
 		PreparedStatement ps = getConnection().prepareStatement(
 				"CREATE TABLE IF NOT EXISTS `dailyreward` (" +
-				"  `id` int(50) NOT NULL AUTO_INCREMENT," +
-				"  `player` varchar(50) NOT NULL," +
-				"  `time` int(255) DEFAULT 0," +
-				"  PRIMARY KEY (`id`)" +
-				") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+						"  `id` int(50) NOT NULL AUTO_INCREMENT," +
+						"  `player` varchar(50) NOT NULL," +
+						"  `default` int(255) DEFAULT 0," +
+						"  `amazing` int(255) DEFAULT 0," +
+						"  `cruel` int(255) DEFAULT 0," +
+						"  `lion` int(255) DEFAULT 0," +
+						"  PRIMARY KEY (`id`)" +
+						") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
 		ps.executeUpdate();
 	}
 
 	public Connection getConnection() {
 		return connection;
 	}
-
 }

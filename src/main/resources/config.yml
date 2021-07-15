@@ -30,7 +30,7 @@ MESSAGE_RELOAD: "&aSuccessfully reloaded all configurations."
 # Permissions
 PERMISSION_ADMIN_ONLY: "reward.admin"
 
-# Basic messages
+# Plugin messages
 MESSAGE_SUCCESS: "&aSuccessfully claimed your &edaily reward"
 MESSAGE_NOT_YET: "&cYou can not claim your daily reward yet. Wait for another %time%."
 MESSAGE_DB_SUCCESS: "&aSuccessfully connected to MySQL."
@@ -38,6 +38,7 @@ MESSAGE_ERROR: "&cError! If you see this message, you probably messed something 
 MESSAGE_ERROR_MYSQL: "An error has occured while creating tables (MySQL)"
 MESSAGE_ERROR_MONGO: "There was an error "
 MESSAGE_WRONG_ARGS: "&cCorrect usage &7/reward &cor &7/reward <VIP name>"
+MESSAGE_NO_PLAYER: "&cThis player does not exist in database!"
 
 # -------- Plugin configuration --------
 

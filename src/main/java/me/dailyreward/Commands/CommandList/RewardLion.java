@@ -6,7 +6,6 @@ import me.dailyreward.Commands.CommandArgs;
 import me.dailyreward.Configuration.ConfigPlayer;
 import me.dailyreward.Configuration.Yaml;
 import me.dailyreward.DailyReward;
-import me.dailyreward.Databases.MongoDB.PlayerData;
 import me.dailyreward.Utils.Color;
 import me.dailyreward.Utils.Time;
 import me.dailyreward.Utils.Util;

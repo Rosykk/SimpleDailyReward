@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
-public class PlayerData {
+public class PlayerMySQL {
 
 	private final DailyReward plugin = DailyReward.getInstance();
 
@@ -24,10 +24,23 @@ public class PlayerData {
 		ps.executeUpdate();
 	}
 
-	public void updateTime(Player player) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET `time` = ? WHERE uuid=?");
-		ps.setLong(1, plugin.getTime());
-		ps.setString(2, player.getUniqueId().toString());
+	public boolean playerExists(String name) throws SQLException {
+		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("SELECT * FROM `dailyreward` WHERE player=?");
+		ps.setString(1, name);
+
+		ResultSet rs = ps.executeQuery();
+
+		int i = 0;
+		while(rs.next()); { i++; }
+		if(i == 0) { return false; }
+		return true;
+	}
+
+	public void updateTime(String name, long time, Player player) throws SQLException {
+		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET (?) = ? WHERE player=?");
+		ps.setString(1, name);
+		ps.setLong(2, time);
+		ps.setString(3, player.getName());
 		ps.executeUpdate();
 	}
 

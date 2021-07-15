@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 @Getter
 public final class DailyReward extends JavaPlugin {
 
-	private final long time = System.currentTimeMillis() + 86400000L;
+
 
 	@Getter
 	private static DailyReward instance;

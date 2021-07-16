@@ -20,10 +20,10 @@ public class Time {
 	private static final long timeLeft = duration.toMillis();
 
 	@Getter
-	private static final long format1 = System.currentTimeMillis() + 86400000L;
+	private static final long format1 = System.currentTimeMillis() + (86400000L * config.getConfig().getInt("DAYS_TO_WAIT"));
 
-	// does not work, add to config some other stuff
-	private static final long format2 = System.currentTimeMillis() + (86400000L - timeLeft);
+	@Getter
+	private static final long format2 = System.currentTimeMillis() + ((86400000L * config.getConfig().getInt("DAYS_TO_WAIT")) - timeLeft);
 
 	public static String getTimeFormat(long num) {
 		int hour = (int) num / 60;

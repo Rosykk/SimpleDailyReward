@@ -20,7 +20,6 @@ public class RewardPurge extends BaseCommand {
 	public void onCommand(CommandArgs args) throws SQLException {
 		Player player = args.getPlayer();
 
-
 		switch (args.getArgs(0).toLowerCase()) {
 			case "mongodb":
 				break;
@@ -28,7 +27,7 @@ public class RewardPurge extends BaseCommand {
 				playerData.dropTable();
 				break;
 			default:
-				Color.sendMessage("MESSAGE_WRONG_ARGS", player);
+				Color.sendMessage("MESSAGE_ARGS_PURGE", player);
 		}
 
 		Color.sendMessage(plugin.getPrefix() + plugin.getCfg().getString("MESSAGE_SUCCESS_PURGE"), player);

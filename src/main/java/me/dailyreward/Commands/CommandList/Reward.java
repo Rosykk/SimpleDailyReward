@@ -53,7 +53,9 @@ public class Reward extends BaseCommand {
 						if (!playerMySQL.playerExists(player.getName())) {
 							playerMySQL.insertPlayer(player);
 						}
-						playerMySQL.updateTime("default", Time.getFormat1(), player);
+						playerMySQL.updateTime("default", Time.getFormat2(), player);
+						long time = ((Time.getFormat2() - System.currentTimeMillis()) / 1000 / 60);
+						Color.sendMessage("Time left:" + Time.getTimeFormat(time), player);
 						break;
 					default:
 						playerConfig.set("DEFAULT", Time.getFormat1());

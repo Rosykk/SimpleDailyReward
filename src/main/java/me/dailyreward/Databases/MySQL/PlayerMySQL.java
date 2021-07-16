@@ -37,10 +37,9 @@ public class PlayerMySQL {
 	}
 
 	public void updateTime(String name, long time, Player player) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET (?)=? WHERE player=?");
-		ps.setString(1, name);
-		ps.setLong(2, time);
-		ps.setString(3, player.getName());
+		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET" + name + "=? WHERE player=?");
+		ps.setLong(1, time);
+		ps.setString(2, player.getName());
 		ps.executeUpdate();
 	}
 
@@ -53,10 +52,11 @@ public class PlayerMySQL {
 		int i = 0;
 		while(rs.next()) i++;
 
-		if(i == 0) {
-			ps = plugin.getDb().getMySQL().getConnection().prepareStatement("INSERT INTO `dailyreward` (`player`) VALUES (?)");
-			ps.setString(1, player.getName());
-			ps.executeUpdate();
+		switch(i) {
+			case 0:
+				ps = plugin.getDb().getMySQL().getConnection().prepareStatement("INSERT INTO `dailyreward` (`player`) VALUES (?)");
+				ps.setString(1, player.getName());
+				ps.executeUpdate();
 		}
 	}
 }

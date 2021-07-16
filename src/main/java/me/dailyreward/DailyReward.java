@@ -65,7 +65,7 @@ public final class DailyReward extends JavaPlugin {
 	}
 
 	public String getPrefix() {
-		if(getCfg().getConfigBool("ENABLE_PREFIX")) return getCfg().getConfigString("PREFIX");
+		if(getCfg().getConfigBool("ENABLE_PREFIX")) return getCfg().getString("PREFIX");
 		return "";
 	}
 }

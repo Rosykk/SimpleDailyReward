@@ -1,6 +1,7 @@
 package me.dailyreward.Databases;
 
 import lombok.Getter;
+import me.dailyreward.Configuration.Config;
 import me.dailyreward.DailyReward;
 import me.dailyreward.Databases.MongoDB.MongoDB;
 import me.dailyreward.Databases.MySQL.MySQL;
@@ -12,48 +13,47 @@ import java.sql.SQLException;
 public class Database {
 
 	private final DailyReward plugin = DailyReward.getInstance();
+	private final Config config = this.plugin.getCfg();
 
 	private MongoDB mongoDB;
 	private MySQL mySQL;
 
 	/* User credentials */
-	private final String username = this.plugin.getCfg().getConfigString("CREDENTIALS.USERNAME");
-	private final String authDatabase = this.plugin.getCfg().getConfigString("CREDENTIALS.DATABASE");
-	private final String password = this.plugin.getCfg().getConfigString("CREDENTIALS.PASSWORD");
+	private final String username = this.plugin.getCfg().getString("CREDENTIALS.USERNAME");
+	private final String authDatabase = this.plugin.getCfg().getString("CREDENTIALS.DATABASE");
+	private final String password = this.plugin.getCfg().getString("CREDENTIALS.PASSWORD");
 
 	/* Database server */
-	private final String host = this.plugin.getCfg().getConfigString("CREDENTIALS.HOST");
+	private final String host = this.plugin.getCfg().getString("CREDENTIALS.HOST");
 	private final int port = this.plugin.getCfg().getConfig().getInt("CREDENTIALS.PORT");
 
 	private final boolean mongodb = this.plugin.getCfg().getConfigBool("DATABASE.MONGODB");
 	private final boolean mysql = this.plugin.getCfg().getConfigBool("DATABASE.MYSQL");
 
 	/* Messages */
-	private final String errorMessage = this.plugin.getCfg().getConfigString("MESSAGE_ERROR_MYSQL");
-	private final String successMessage = this.plugin.getCfg().getConfigString("MESSAGE_DB_SUCCESS");
+	private final String errorMessage = this.plugin.getCfg().getString("MESSAGE_ERROR_MYSQL");
+	private final String successMessage = this.plugin.getCfg().getString("MESSAGE_DB_SUCCESS");
 
 	public void connect() throws SQLException {
-		if(!illegal()) {
-			if (mongodb) {
-				mongoDB = new MongoDB();
-				mongoDB.connect();
-			}
-
-			if(mysql) {
-				mySQL = new MySQL();
-				mySQL.connect();
-				mySQL.createTables();
-			}
+		switch(config.getString("DATABASE").toUpperCase()) {
+			case "MONGODB":
+				loadMongo();
+				break;
+			case "MYSQL":
+				loadMySQL();
+				break;
+			default:
+				this.plugin.getPluginLoader().disablePlugin(plugin);
 		}
 	}
 
-	public boolean illegal() {
-		if (mongodb && mysql) {
-			plugin.getLogger().info(Color.colorize("&cDisable MySQL or MondoDB, at the moment is not allowed using both at the same time!"));
-			plugin.getPluginLoader().disablePlugin(plugin);
-			return true;
-		}
-		return false;
+	private void loadMongo() {
+		mongoDB = new MongoDB();
+		mongoDB.connect();
 	}
 
+	private void loadMySQL() throws SQLException {
+		mySQL = new MySQL();
+		mySQL.connect();
+	}
 }

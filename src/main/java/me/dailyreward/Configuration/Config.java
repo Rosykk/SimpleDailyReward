@@ -16,16 +16,22 @@ public class Config {
 
 	/* if config folder does not exist, create one and generate configs */
 	public void loadConfiguration() {
-		if(!plugin.getDataFolder().exists()) {
-			plugin.getDataFolder().mkdir();
-		}
-
+		createFolder();
 		createData();
 		ConfigManager.setup();
 	}
 
+
+	public void createFolder() {
+		if(!plugin.getDataFolder().exists()) {
+			plugin.getDataFolder().mkdir();
+		}
+
+	}
+
 	public void createData() {
 		File data = new File(plugin.getDataFolder(), "playerdata");
+
 		if(!data.exists()) {
 			data.mkdir();
 		}
@@ -35,11 +41,7 @@ public class Config {
 		return ConfigManager.getConfig();
 	}
 
-	public ConfigurationSection getConfigSection(String s) {
-		return getConfig().getConfigurationSection(s);
-	}
-
-	public String getConfigString(String s) {
+	public String getString(String s) {
 		return getConfig().getString(s);
 	}
 

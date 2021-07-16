@@ -29,7 +29,7 @@ public class RewardRemove extends BaseCommand {
 
 			case "mysql":
 				if(playerMySQL.playerExists(args.getArgs(1))) playerMySQL.removePlayer(args.getArgs(1));
-				else Color.sendMessage(config.getConfigString("MESSAGE_NO_PLAYER"), player);
+				else Color.sendMessage(config.getString("MESSAGE_NO_PLAYER"), player);
 				break;
 			case "local":
 

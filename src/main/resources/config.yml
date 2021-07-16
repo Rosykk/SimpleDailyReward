@@ -7,11 +7,9 @@
 # commands needs to be written without the slash char (  /  )
 
 # --------------- Database ----------------
-# Do not use both at the same time.
+# Options: MONGODB, MYSQL
 
-DATABASE:
-  MONGODB: false
-  MYSQL: false
+DATABASE: MONGODB
 CREDENTIALS:
   USERNAME: ''
   PASSWORD: ''
@@ -41,17 +39,14 @@ MESSAGE_WRONG_ARGS: "&cCorrect usage &7/reward &cor &7/reward <VIP name>"
 MESSAGE_NO_PLAYER: "&cThis player does not exist in database!"
 
 # -------- Plugin configuration --------
-
-# Prefix
+# Important stuff
 ENABLE_PREFIX: true
 PREFIX: "&c&lDailyReward &7&l» &r"
 
-# HOUR - player has to wait exactly 24h before claiming another reward
-# DAY - player has to wait until midnight
-TIME_FORMAT: "HOUR"
+# Options: HOUR, MIDNIGHT
+TIME_FORMAT: HOUR
 
-# Do you want player to wait more than 24h? It works like multiplier. 24 * 1, 24 * 2 et cetera.
-# Works for both formats.
+# Day multiplier
 DAYS_TO_WAIT: 1
 
 # --------------- Rewards --------------

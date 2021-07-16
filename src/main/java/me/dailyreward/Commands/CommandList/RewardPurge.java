@@ -4,22 +4,28 @@ import me.dailyreward.Commands.BaseCommand;
 import me.dailyreward.Commands.Command;
 import me.dailyreward.Commands.CommandArgs;
 import me.dailyreward.Databases.MySQL.PlayerMySQL;
+import me.dailyreward.Utils.Color;
+import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
 
 public class RewardPurge extends BaseCommand {
 
-	private PlayerMySQL playerData = new PlayerMySQL();
+	private final PlayerMySQL playerData = new PlayerMySQL();
 
 	@Override
 	@Command(name = "reward.purge", isAdminOnly = true)
 	public void onCommand(CommandArgs args) throws SQLException {
+		Player player = args.getPlayer();
+
 		switch (args.getArgs(0)) {
 			case "mongodb":
-
+				break;
 			case "mysql":
 				playerData.dropTable();
-			case "local":
+				break;
+			default:
+				Color.sendMessage("MESSAGE_WRONG_ARGS", player);
 
 		}
 	}

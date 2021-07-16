@@ -21,29 +21,27 @@ public class JoinEvent implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
-	/**
-	 * Local files
-	 **/
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {
 		Player player = event.getPlayer();
+		config = ConfigPlayer.getPlayer(player); // Get local path
 
-		switch (config.getString("")) {
+		switch (config.getString("DATABASE").toUpperCase()) {
 			case "MONGODB":
 				break;
 			case "MYSQL":
 				PlayerMySQL playerData = new PlayerMySQL();
 				playerData.insertPlayer(player);
 				break;
-			default:
-				config = ConfigPlayer.getPlayer(player); // Get local path
-
+			case "LOCAL":
 				config.add("DEFAULT", 0);
 				config.add("AMAZING", 0);
 				config.add("LION", 0);
 				config.add("CRUEL", 0);
 
 				config.save(); // Save data
+			default:
+				plugin.getLogger().info(config.getString("MESSAGE_WRONG_TYPE"));
 		}
 	}
 }

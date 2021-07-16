@@ -18,7 +18,6 @@ public class RewardRemove extends BaseCommand {
 	private final PlayerMySQL playerMySQL = new PlayerMySQL();
 	private final Config config = DailyReward.getInstance().getCfg();
 
-
 	@Override
 	@Command(name = "reward.remove", isAdminOnly = true)
 	public void onCommand(CommandArgs args) throws SQLException {
@@ -27,12 +26,11 @@ public class RewardRemove extends BaseCommand {
 
 		switch (args.getArgs(0)) {
 			case "mongodb":
-
+				break;
 			case "mysql":
 				removeMySQL(target, player);
+				Color.sendMessage("MESSAGE_SUCCESS_REMOVE", player);
 				break;
-			case "local":
-
 		}
 	}
 

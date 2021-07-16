@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class JoinEvent implements Listener {
 
 	private final DailyReward plugin;
-	private Yaml config;
+	private Yaml playerConfig;
 
 	public JoinEvent(DailyReward plugin) {
 		this.plugin = plugin;
@@ -24,9 +24,8 @@ public class JoinEvent implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {
 		Player player = event.getPlayer();
-		config = ConfigPlayer.getPlayer(player); // Get local path
 
-		switch (config.getString("DATABASE").toUpperCase()) {
+		switch (this.plugin.getCfg().getString("DATABASE")) {
 			case "MONGODB":
 				break;
 			case "MYSQL":
@@ -34,14 +33,16 @@ public class JoinEvent implements Listener {
 				playerData.insertPlayer(player);
 				break;
 			case "LOCAL":
-				config.add("DEFAULT", 0);
-				config.add("AMAZING", 0);
-				config.add("LION", 0);
-				config.add("CRUEL", 0);
+				playerConfig = ConfigPlayer.getPlayer(player); // Get local path
 
-				config.save(); // Save data
+				playerConfig.add("DEFAULT", 0);
+				playerConfig.add("AMAZING", 0);
+				playerConfig.add("LION", 0);
+				playerConfig.add("CRUEL", 0);
+
+				playerConfig.save(); // Save data
 			default:
-				plugin.getLogger().info(config.getString("MESSAGE_WRONG_TYPE"));
+				plugin.getLogger().info(this.plugin.getCfg().getString("MESSAGE_WRONG_TYPE"));
 		}
 	}
 }

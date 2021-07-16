@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 @Getter
 public final class DailyReward extends JavaPlugin {
 
-
-
 	@Getter
 	private static DailyReward instance;
 	private CommandFramework framework;
@@ -47,8 +45,6 @@ public final class DailyReward extends JavaPlugin {
 		db = new Database();
 		db.connect();
 
-		/** Connection MySQL **/
-
 		/** Command framework implementation **/
 		framework = new CommandFramework(this);
 		framework.registerCommands(new Reward());
@@ -56,6 +52,8 @@ public final class DailyReward extends JavaPlugin {
 		framework.registerCommands(new RewardLion());
 		framework.registerCommands(new RewardCruel());
 		framework.registerCommands(new RewardReload());
+		framework.registerCommands(new RewardPurge());
+		framework.registerCommands(new RewardRemove());
 		framework.registerHelp();
 	}
 
@@ -65,7 +63,7 @@ public final class DailyReward extends JavaPlugin {
 	}
 
 	public String getPrefix() {
-		if(getCfg().getConfigBool("ENABLE_PREFIX")) return getCfg().getString("PREFIX");
+		if (getCfg().getBoolean("ENABLE_PREFIX")) return getCfg().getString("PREFIX");
 		return "";
 	}
 }

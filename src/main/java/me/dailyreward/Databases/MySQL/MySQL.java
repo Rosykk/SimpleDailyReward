@@ -12,22 +12,21 @@ import java.sql.SQLException;
 public class MySQL {
 
 	private final DailyReward plugin = DailyReward.getInstance();
-	private Database db = new Database();
+	private final Database db = new Database();
 
 	/* MySQL connection */
 	private Connection connection;
 
 	public boolean isConnected() {
-		if(connection == null) return false;
-		return true;
+		return connection != null;
 	}
 
 	public void connect() throws SQLException {
-		if(!isConnected()) {
+		if (!isConnected()) {
 			connection = DriverManager.getConnection(
 					"jdbc:mysql://" + this.db.getHost() + ":" + this.db.getPort() +
-						"/" + this.db.getAuthDatabase() + "?useSSL=false",
-						this.db.getUsername(), db.getPassword());
+							"/" + this.db.getAuthDatabase() + "?useSSL=false",
+					this.db.getUsername(), db.getPassword());
 			plugin.getLogger().info(Color.colorize(db.getSuccessMessage()));
 		}
 	}
@@ -47,11 +46,11 @@ public class MySQL {
 		PreparedStatement ps = getConnection().prepareStatement(
 				"CREATE TABLE IF NOT EXISTS `dailyreward` (" +
 						"  `id` int(50) NOT NULL AUTO_INCREMENT," +
-						"  `player` varchar(50) NOT NULL," +
-						"  `default` int(255) DEFAULT 0," +
-						"  `amazing` int(255) DEFAULT 0," +
-						"  `cruel` int(255) DEFAULT 0," +
-						"  `lion` int(255) DEFAULT 0," +
+						"  `player` varchar(30) NOT NULL," +
+						"  `default` bigint(23) unsigned DEFAULT 0," +
+						"  `amazing` bigint(23) unsigned DEFAULT 0," +
+						"  `cruel` bigint(23) unsigned DEFAULT 0," +
+						"  `lion` bigint(23) unsigned DEFAULT 0," +
 						"  PRIMARY KEY (`id`)" +
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 

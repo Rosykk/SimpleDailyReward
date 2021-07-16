@@ -14,12 +14,12 @@ public class PlayerMySQL {
 	private final DailyReward plugin = DailyReward.getInstance();
 
 	public void dropTable() throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("DELETE * FROM `dailyreward`");
+		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("DELETE FROM `dailyreward`");
 		ps.executeUpdate();
 	}
 
 	public void removePlayer(String string) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("DELETE * FROM `dailyreward` WHERE player=?");
+		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("DELETE FROM `dailyreward` WHERE player=?");
 		ps.setString(1, string);
 		ps.executeUpdate();
 	}
@@ -37,7 +37,7 @@ public class PlayerMySQL {
 	}
 
 	public void updateTime(String name, long time, Player player) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET" + name + "=? WHERE player=?");
+		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET `" + name + "` = ? WHERE player=?");
 		ps.setLong(1, time);
 		ps.setString(2, player.getName());
 		ps.executeUpdate();

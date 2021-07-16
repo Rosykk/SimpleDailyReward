@@ -3,6 +3,7 @@ package me.dailyreward.Commands.CommandList;
 import me.dailyreward.Commands.BaseCommand;
 import me.dailyreward.Commands.Command;
 import me.dailyreward.Commands.CommandArgs;
+import me.dailyreward.Configuration.Config;
 import me.dailyreward.Configuration.ConfigPlayer;
 import me.dailyreward.Configuration.Yaml;
 import me.dailyreward.DailyReward;
@@ -24,17 +25,18 @@ public class Reward extends BaseCommand {
 	private final PlayerMySQL playerMySQL = new PlayerMySQL();
 
 	@Override
-	@Command(name = "reward." )
+	@Command(name = "reward")
 	public void onCommand(CommandArgs args) throws SQLException {
 		Player player = args.getPlayer();
 
-		Yaml config = ConfigPlayer.getPlayer(player);
+		Yaml playerConfig = ConfigPlayer.getPlayer(player);
+		Config config = this.plugin.getCfg();
 
-		if(Util.argLength(args, 1)) return;
+		if (Util.argLength(args, 1, "MESSAGE_WRONG_ARGS")) return;
 
 		/* Check if player has permission and and if it is not NULL */
-		if(player.hasPermission("DEFAULT_REWARD.PERMISSION")) {
-			if(config.getLong("DEFAULT_REWARD.DEFAULT") < System.currentTimeMillis()) {
+		if (player.hasPermission("DEFAULT_REWARD.PERMISSION")) {
+			if (playerConfig.getLong("DEFAULT_REWARD.DEFAULT") < System.currentTimeMillis()) {
 				List<String> list = new ArrayList<>(config.getStringList("DEFAULT_REWARD.COMMANDS"));
 				ConsoleCommandSender sender = Bukkit.getConsoleSender();
 
@@ -42,20 +44,23 @@ public class Reward extends BaseCommand {
 					Bukkit.dispatchCommand(sender, s.replace("%player%", player.getDisplayName()));
 				}
 
-				Color.sendMessage(plugin.getPrefix() + config.getString("DEFAULT_REWARD.MESSAGE"), player);
+				Color.sendMessage(plugin.getPrefix() + this.plugin.getCfg().getString("DEFAULT_REWARD.MESSAGE"), player);
 
-				switch (config.getString("").toUpperCase()) {
+				switch (config.getString("DATABASE").toUpperCase()) {
 					case "MONGODB":
 						break;
 					case "MYSQL":
+						if (!playerMySQL.playerExists(player.getName())) {
+							playerMySQL.insertPlayer(player);
+						}
 						playerMySQL.updateTime("default", Time.getFormat1(), player);
 						break;
 					default:
-						config.set("DEFAULT", Time.getFormat1());
-						config.save();
+						playerConfig.set("DEFAULT", Time.getFormat1());
+						playerConfig.save();
 				}
 			} else {
-				long time = (config.getLong("DEFAULT") - System.currentTimeMillis()) / 1000 / 60;
+				long time = (playerConfig.getLong("DEFAULT") - System.currentTimeMillis()) / 1000 / 60;
 				Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_YET").replace("%time%", Time.getTimeFormat(time)), player);
 			}
 		} else Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_ENOUGH_PERMISSIONS"), player);

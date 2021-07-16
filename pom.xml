@@ -6,7 +6,7 @@
 
     <groupId>me</groupId>
     <artifactId>dailyreward</artifactId>
-    <version>1.0</version>
+    <version>1.2 (DEV)</version>
     <packaging>jar</packaging>
 
     <name>DailyReward</name>

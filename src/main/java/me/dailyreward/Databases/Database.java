@@ -5,7 +5,6 @@ import me.dailyreward.Configuration.Config;
 import me.dailyreward.DailyReward;
 import me.dailyreward.Databases.MongoDB.MongoDB;
 import me.dailyreward.Databases.MySQL.MySQL;
-import me.dailyreward.Utils.Color;
 
 import java.sql.SQLException;
 
@@ -27,15 +26,15 @@ public class Database {
 	private final String host = this.plugin.getCfg().getString("CREDENTIALS.HOST");
 	private final int port = this.plugin.getCfg().getConfig().getInt("CREDENTIALS.PORT");
 
-	private final boolean mongodb = this.plugin.getCfg().getConfigBool("DATABASE.MONGODB");
-	private final boolean mysql = this.plugin.getCfg().getConfigBool("DATABASE.MYSQL");
+	private final boolean mongodb = this.plugin.getCfg().getBoolean("DATABASE.MONGODB");
+	private final boolean mysql = this.plugin.getCfg().getBoolean("DATABASE.MYSQL");
 
 	/* Messages */
 	private final String errorMessage = this.plugin.getCfg().getString("MESSAGE_ERROR_MYSQL");
 	private final String successMessage = this.plugin.getCfg().getString("MESSAGE_DB_SUCCESS");
 
 	public void connect() throws SQLException {
-		switch(config.getString("DATABASE").toUpperCase()) {
+		switch (config.getString("DATABASE").toUpperCase()) {
 			case "MONGODB":
 				loadMongo();
 				break;
@@ -55,5 +54,6 @@ public class Database {
 	private void loadMySQL() throws SQLException {
 		mySQL = new MySQL();
 		mySQL.connect();
+		mySQL.createTables();
 	}
 }

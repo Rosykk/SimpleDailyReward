@@ -1,51 +1,54 @@
 package me.dailyreward.Configuration;
 
 import me.dailyreward.DailyReward;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.util.List;
 
 public class Config {
 
-	private DailyReward plugin;
+    private final DailyReward plugin;
 
-	public Config(DailyReward dailyreward) {
-		this.plugin = dailyreward;
-	}
+    public Config(DailyReward dailyreward) {
+        this.plugin = dailyreward;
+    }
 
-	/* if config folder does not exist, create one and generate configs */
-	public void loadConfiguration() {
-		createFolder();
-		createData();
-		ConfigManager.setup();
-	}
+    /* if config folder does not exist, create one and generate configs */
+    public void loadConfiguration() {
+        createFolder();
+        createData();
+        ConfigManager.setup();
+    }
 
 
-	public void createFolder() {
-		if(!plugin.getDataFolder().exists()) {
-			plugin.getDataFolder().mkdir();
-		}
+    public void createFolder() throws SecurityException {
+        if (!plugin.getDataFolder().exists()) {
+            plugin.getDataFolder().mkdir();
+        }
+    }
 
-	}
+    public void createData() {
+        File data = new File(plugin.getDataFolder(), "playerdata");
 
-	public void createData() {
-		File data = new File(plugin.getDataFolder(), "playerdata");
+        if (!data.exists()) {
+            data.mkdir();
+        }
+    }
 
-		if(!data.exists()) {
-			data.mkdir();
-		}
-	}
+    public FileConfiguration getConfig() {
+        return ConfigManager.getConfig();
+    }
 
-	public FileConfiguration getConfig() {
-		return ConfigManager.getConfig();
-	}
+    public String getString(String s) {
+        return getConfig().getString(s);
+    }
 
-	public String getString(String s) {
-		return getConfig().getString(s);
-	}
+    public Boolean getBoolean(String s) {
+        return getConfig().getBoolean(s);
+    }
 
-	public Boolean getConfigBool(String s) {
-		return getConfig().getBoolean(s);
-	}
+    public List<String> getStringList(String s) {
+        return getConfig().getStringList(s);
+    }
 }

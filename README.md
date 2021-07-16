@@ -11,6 +11,7 @@ tier1 reward: /reward amazing
 tier2 reward: /reward lion
 tier3 reward: /reward cruel
 reload config: /reward reload
+purge database: /reward purge <MySQL, MongoDB>
 ```
 
 There are no known issues, I already recoded it and cleaned up the code. It is fully worrking and customizable. 

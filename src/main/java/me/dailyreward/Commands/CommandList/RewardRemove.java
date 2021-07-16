@@ -23,16 +23,21 @@ public class RewardRemove extends BaseCommand {
 	@Command(name = "reward.remove", isAdminOnly = true)
 	public void onCommand(CommandArgs args) throws SQLException {
 		Player player = args.getPlayer();
+		String target = args.getArgs(1);
 
 		switch (args.getArgs(0)) {
 			case "mongodb":
 
 			case "mysql":
-				if(playerMySQL.playerExists(args.getArgs(1))) playerMySQL.removePlayer(args.getArgs(1));
-				else Color.sendMessage(config.getString("MESSAGE_NO_PLAYER"), player);
+				removeMySQL(target, player);
 				break;
 			case "local":
 
 		}
+	}
+
+	private void removeMySQL(String target, Player player) throws SQLException {
+		if (playerMySQL.playerExists(target)) playerMySQL.removePlayer(target);
+		else Color.sendMessage(config.getString("MESSAGE_NO_PLAYER"), player);
 	}
 }

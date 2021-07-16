@@ -13,55 +13,37 @@ import java.sql.SQLException;
 
 public class JoinEvent implements Listener {
 
-	private DailyReward plugin;
+	private final DailyReward plugin;
 	private Yaml config;
-
-	private PlayerMySQL playerData;
 
 	public JoinEvent(DailyReward plugin) {
 		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
-	/** Local files **/
+	/**
+	 * Local files
+	 **/
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
+	public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {
 		Player player = event.getPlayer();
 
-		if(!plugin.getCfg().getConfigBool("DATABASE.MONGODB") && !plugin.getCfg().getConfigBool("DATABASE.MYSQL")) {
-			/* If configuration for player doesn't exist, generate */
-			config = ConfigPlayer.getPlayer(player);
+		switch (config.getString("")) {
+			case "MONGODB":
+				break;
+			case "MYSQL":
+				PlayerMySQL playerData = new PlayerMySQL();
+				playerData.insertPlayer(player);
+				break;
+			default:
+				config = ConfigPlayer.getPlayer(player); // Get local path
 
-			config.add("DEFAULT", 0);
-			config.add("AMAZING", 0);
-			config.add("LION", 0);
-			config.add("CRUEL", 0);
+				config.add("DEFAULT", 0);
+				config.add("AMAZING", 0);
+				config.add("LION", 0);
+				config.add("CRUEL", 0);
 
-			/* Save player data */
-			config.save();
-		}
-	}
-
-	/** MongoDB **/
-	@EventHandler
-	public void onJoinMongo(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-
-		if(plugin.getCfg().getConfigBool("DATABASE.MONGODB")) {
-
-		}
-	}
-
-
-	/** MySQL **/
-	@EventHandler
-	public void onJoinMySQL(PlayerJoinEvent event) throws SQLException {
-		Player player = event.getPlayer();
-
-		if(plugin.getCfg().getConfigBool("DATABASE.MYSQL")) {
-			playerData = new PlayerMySQL();
-
-			playerData.insertPlayer(player);
+				config.save(); // Save data
 		}
 	}
 }

@@ -8,12 +8,10 @@ import me.dailyreward.Configuration.Yaml;
 import me.dailyreward.DailyReward;
 import me.dailyreward.Databases.MySQL.PlayerMySQL;
 import me.dailyreward.Utils.Color;
-import me.dailyreward.Utils.DB;
 import me.dailyreward.Utils.Time;
 import me.dailyreward.Utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
@@ -40,24 +38,22 @@ public class Reward extends BaseCommand {
 				List<String> list = new ArrayList<>(config.getStringList("DEFAULT_REWARD.COMMANDS"));
 				ConsoleCommandSender sender = Bukkit.getConsoleSender();
 
-				for(String s : list) {
+				for (String s : list) {
 					Bukkit.dispatchCommand(sender, s.replace("%player%", player.getDisplayName()));
 				}
 
-				Color.sendMessage(plugin.getPrefix() +  config.getString("DEFAULT_REWARD.MESSAGE"), player);
+				Color.sendMessage(plugin.getPrefix() + config.getString("DEFAULT_REWARD.MESSAGE"), player);
 
-				/* Saves a new value to the path (local files)*/
-				if(DB.getLocalFiles()) {
-					config.set("DEFAULT", Time.getFormat1());
-					config.save();
+				switch (config.getString("").toUpperCase()) {
+					case "MONGODB":
+						break;
+					case "MYSQL":
+						playerMySQL.updateTime("default", Time.getFormat1(), player);
+						break;
+					default:
+						config.set("DEFAULT", Time.getFormat1());
+						config.save();
 				}
-
-				/* Saves a new value to the path (MySQL database)*/
-				if(DB.getMySQL()) playerMySQL.updateTime("default", Time.getFormat1(), player);
-
-				/* Saves a new value to the path (MongoDB bson)*/
-				//if(DB.getLocalFiles()) { }
-
 			} else {
 				long time = (config.getLong("DEFAULT") - System.currentTimeMillis()) / 1000 / 60;
 				Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_YET").replace("%time%", Time.getTimeFormat(time)), player);

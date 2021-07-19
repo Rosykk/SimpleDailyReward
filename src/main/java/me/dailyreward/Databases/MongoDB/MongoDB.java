@@ -23,20 +23,24 @@ public class MongoDB {
 
     public void connect() {
         try {
-            if (enabled) {
-                MongoClientURI uri = new MongoClientURI("mongodb://" + this.db.getUsername() + ":"
-                        + this.db.getPassword() + "@" + this.db.getHost() + ":"
-                        + this.db.getPort() + "/?authSource=" + db.getAuthDatabase());
+            MongoClientURI uri = new MongoClientURI(
+                    "mongodb://" + this.db.getUsername() + ":"
+                            + this.db.getPassword() + "@" + this.db.getHost() + ":"
+                            + this.db.getPort() + "/?authSource=" + db.getAuthDatabase());
 
-                mongoClient = new MongoClient(uri);
-                mongoDatabase = mongoClient.getDatabase(db.getAuthDatabase());
-                mongoCollection = mongoDatabase.getCollection("Server");
+            mongoClient = new MongoClient(uri);
+            mongoDatabase = mongoClient.getDatabase(db.getAuthDatabase());
+            mongoCollection = mongoDatabase.getCollection("Server");
 
-                this.plugin.getLogger().info(Color.colorize("&aSuccessfully connected to MongoDB"));
-			}
-		} catch (Exception e) {
-			this.plugin.getLogger().info(Color.colorize("&cThere was an fucking error connecting to MongoDB!"));
-			e.printStackTrace();
-		}
-	}
+            this.plugin.getLogger().info(Color.colorize("&aSuccessfully connected to MongoDB"));
+        } catch (Exception e) {
+            this.plugin.getLogger().info(Color.colorize("&cThere was an fucking error connecting to MongoDB!"));
+            e.printStackTrace();
+        }
+    }
+
+    public void disconnect() {
+        mongoClient.close();
+        plugin.getLogger().info(Color.colorize(db.getCloseDatabase()));
+    }
 }

@@ -26,12 +26,10 @@ public class Database {
 	private final String host = this.plugin.getCfg().getString("CREDENTIALS.HOST");
 	private final int port = this.plugin.getCfg().getConfig().getInt("CREDENTIALS.PORT");
 
-	private final boolean mongodb = this.plugin.getCfg().getBoolean("DATABASE.MONGODB");
-	private final boolean mysql = this.plugin.getCfg().getBoolean("DATABASE.MYSQL");
-
 	/* Messages */
 	private final String errorMessage = this.plugin.getCfg().getString("MESSAGE_ERROR_MYSQL");
 	private final String successMessage = this.plugin.getCfg().getString("MESSAGE_DB_SUCCESS");
+	private final String closeDatabase = this.plugin.getCfg().getString("MESSAGE_CLOSE_DATABASE");
 
 	public void connect() throws SQLException {
 		switch (config.getString("DATABASE").toUpperCase()) {
@@ -55,5 +53,18 @@ public class Database {
 		mySQL = new MySQL();
 		mySQL.connect();
 		mySQL.createTables();
+	}
+
+	public void disconnect() {
+		switch (config.getString("DATABASE").toUpperCase()) {
+			case "MONGODB":
+				mongoDB.disconnect();
+				break;
+			case "MYSQL":
+				mySQL.disconnect();
+				break;
+			default:
+				this.plugin.getPluginLoader().disablePlugin(plugin);
+		}
 	}
 }

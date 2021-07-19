@@ -35,13 +35,14 @@ MESSAGE_DB_SUCCESS: "&aSuccessfully connected to MySQL."
 MESSAGE_SUCCESS_REMOVE: "&aSuccessfully removed player data!"
 MESSAGE_SUCCESS_PURGE: "&aSuccessfully purged player data!"
 MESSAGE_ERROR: "&cError! If you see this message, you probably messed something up in your config.yml"
-MESSAGE_ERROR_MYSQL: "An error has occured while creating tables (MySQL)"
+MESSAGE_ERROR_TABLES: "An error has occured while creating tables (MySQL)"
 # MESSAGE_ERROR_MONGO: "&cThere was an error "
 MESSAGE_ARGS_REWARD: "&cCorrect usage &7/reward &cor &7/reward <VIP name>"
 MESSAGE_ARGS_PURGE: "&cCorrect usage &7/reward purge <mysql, mongodb>"
 MESSAGE_ARGS_REMOVE: "&cCorrect usage &7/reward remove <player>"
 MESSAGE_NO_PLAYER: "&cThis player does not exist in database!"
 MESSAGE_WRONG_TYPE: "&cWrong data type in config.yml (DATABASE)"
+MESSAGE_CLOSE_DATABASE: "&aClosing database connection!"
 
 # -------- Plugin configuration --------
 # Important stuff

@@ -35,9 +35,9 @@ public class MySQL {
 		if(isConnected()) {
 			try {
 				connection.close();
-				plugin.getLogger().info(Color.colorize("&aSuccessfully saved data and disconnected!"));
+				plugin.getLogger().info(Color.colorize(db.getCloseDatabase()));
 			} catch (SQLException e) {
-				plugin.getLogger().info(Color.colorize("&cError while closing MySQL connection!"));
+				e.printStackTrace();
 			}
 		}
 	}

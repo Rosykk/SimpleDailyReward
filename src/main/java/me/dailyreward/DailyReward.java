@@ -59,7 +59,7 @@ public final class DailyReward extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		db.getMySQL().disconnect();
+		db.disconnect();
 	}
 
 	public String getPrefix() {

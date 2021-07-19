@@ -16,9 +16,11 @@ public class RewardPurge extends BaseCommand {
 	private final PlayerMySQL playerData = new PlayerMySQL();
 
 	@Override
-	@Command(name = "reward.purge", isAdminOnly = true)
+	@Command(name = "reward.purge", isAdminOnly = true, isGameOnly = false)
 	public void onCommand(CommandArgs args) throws SQLException {
 		Player player = args.getPlayer();
+
+		//TODO check for args
 
 		switch (args.getArgs(0).toLowerCase()) {
 			case "mongodb":

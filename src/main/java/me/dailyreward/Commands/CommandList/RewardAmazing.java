@@ -19,6 +19,7 @@ import java.util.List;
 public class RewardAmazing extends BaseCommand {
 
 	private final DailyReward plugin = DailyReward.getInstance();
+	private final Time time = new Time();
 
 	@Override
 	@Command(name = "reward.amazing")
@@ -27,7 +28,7 @@ public class RewardAmazing extends BaseCommand {
 
 		Yaml config = ConfigPlayer.getPlayer(player);
 
-		if (Util.argLength(args, 1, "MESSAGE_WRONG_ARGS")) return;
+		if (Util.argLength(args, "MESSAGE_WRONG_ARGS", 1)) return;
 
 		/* Check if player has permission and and if it is not NULL */
 		if (player.hasPermission("REWARD_AMAZING.PERMISSION")) {
@@ -42,11 +43,11 @@ public class RewardAmazing extends BaseCommand {
 				Color.sendMessage(plugin.getPrefix() + config.getString("REWARD_AMAZING.MESSAGE"), player);
 
 				/* Saves a new value to the path */
-				config.set("AMAZING", Time.getFormat1());
+				config.set("AMAZING", this.time.getTime());
 				config.save();
 			} else {
 				long time = (config.getLong("AMAZING") - System.currentTimeMillis()) / 1000 / 60;
-				Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_YET").replace("%time%", Time.getTimeFormat(time)), player);
+				Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_YET").replace("%time%", this.time.getTimeFormat(time)), player);
 			}
 		} else Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_ENOUGH_PERMISSIONS"), player);
 	}

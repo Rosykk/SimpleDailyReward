@@ -24,28 +24,28 @@ public final class DailyReward extends JavaPlugin {
 	@SneakyThrows
 	@Override
 	public void onEnable() {
-		/** Sets plugin to main class (this) **/
+		/* Sets plugin to main class (this) */
 		instance = this;
 
-		/** Load all local configurations **/
+		/* Load all local configurations */
 		cfg = new Config(this);
 		cfg.loadConfiguration();
 
-		/** Register events **/
+		/* Register events */
 		new JoinEvent(instance);
 
-		/** MongoDB **/
+		/* MongoDB **/
 		/* Cleaner debug */
 		System.setProperty("DEBUG.GO", "true");
 		System.setProperty("DB.TRACE", "true");
 		Logger mongoLobber = Logger.getLogger("org.mongodb.driver");
 		mongoLobber.setLevel(Level.WARNING);
 
-		/** Connection **/
+		/* Connection */
 		db = new Database();
 		db.connect();
 
-		/** Command framework implementation **/
+		/* Command framework implementation */
 		framework = new CommandFramework(this);
 		framework.registerCommands(new Reward());
 		framework.registerCommands(new RewardAmazing());
@@ -63,7 +63,6 @@ public final class DailyReward extends JavaPlugin {
 	}
 
 	public String getPrefix() {
-		if (getCfg().getBoolean("ENABLE_PREFIX")) return getCfg().getString("PREFIX");
-		return "";
+		return (getCfg().getBoolean("ENABLE_PREFIX")) ? getCfg().getString("PREFIX") : "";
 	}
 }

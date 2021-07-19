@@ -23,6 +23,7 @@ public class Reward extends BaseCommand {
 
 	private final DailyReward plugin = DailyReward.getInstance();
 	private final PlayerMySQL playerMySQL = new PlayerMySQL();
+	private final Time time = new Time();
 
 	@Override
 	@Command(name = "reward")
@@ -32,7 +33,7 @@ public class Reward extends BaseCommand {
 		Yaml playerConfig = ConfigPlayer.getPlayer(player);
 		Config config = this.plugin.getCfg();
 
-		if (Util.argLength(args, 1, "MESSAGE_WRONG_ARGS")) return;
+		if (Util.argLength(args, "MESSAGE_WRONG_ARGS", 1)) return;
 
 		/* Check if player has permission and and if it is not NULL */
 		if (player.hasPermission("DEFAULT_REWARD.PERMISSION")) {
@@ -50,20 +51,20 @@ public class Reward extends BaseCommand {
 					case "MONGODB":
 						break;
 					case "MYSQL":
-						if (!playerMySQL.playerExists(player.getName())) {
-							playerMySQL.insertPlayer(player);
-						}
-						playerMySQL.updateTime("default", Time.getFormat2(), player);
-						long time = ((Time.getFormat2() - System.currentTimeMillis()) / 1000 / 60);
-						Color.sendMessage("Time left:" + Time.getTimeFormat(time), player);
+						if (!playerMySQL.playerExists(player.getName())) playerMySQL.insertPlayer(player);
+						playerMySQL.updateTime("default", time.getTime(), player);
+
+						//TODO fix time formatting
+						long time = ((this.time.getTime() - System.currentTimeMillis()) / 1000 / 60);
+						Color.sendMessage("Time left:" + this.time.getTimeFormat(time), player);
 						break;
 					default:
-						playerConfig.set("DEFAULT", Time.getFormat1());
+						playerConfig.set("DEFAULT", this.time.getTime());
 						playerConfig.save();
 				}
 			} else {
 				long time = (playerConfig.getLong("DEFAULT") - System.currentTimeMillis()) / 1000 / 60;
-				Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_YET").replace("%time%", Time.getTimeFormat(time)), player);
+				Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_YET").replace("%time%", this.time.getTimeFormat(time)), player);
 			}
 		} else Color.sendMessage(plugin.getCfg().getString("MESSAGE_NOT_ENOUGH_PERMISSIONS"), player);
 	}

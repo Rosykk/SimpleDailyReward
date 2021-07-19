@@ -19,20 +19,18 @@ public class RewardRemove extends BaseCommand {
 	private final Config config = DailyReward.getInstance().getCfg();
 
 	@Override
-	@Command(name = "reward.remove", isAdminOnly = true)
+	@Command(name = "reward.remove", isAdminOnly = true, isGameOnly = false)
 	public void onCommand(CommandArgs args) throws SQLException {
 		Player player = args.getPlayer();
 
-		if (args.getArgs(0).equals(null) || args.getArgs(0).equals(""))
-
-			switch (args.getArgs(0)) {
-				case "mongodb":
-					break;
-				case "mysql":
-					removeMySQL(args.getArgs(1), player);
-					Color.sendMessage("MESSAGE_SUCCESS_REMOVE", player);
-					break;
-			}
+		switch (args.getArgs(0).toLowerCase()) {
+			case "mongodb":
+				break;
+			case "mysql":
+				removeMySQL(args.getArgs(1), player);
+				Color.sendMessage("MESSAGE_SUCCESS_REMOVE", player);
+				break;
+		}
 	}
 
 	private void removeMySQL(String target, Player player) throws SQLException {

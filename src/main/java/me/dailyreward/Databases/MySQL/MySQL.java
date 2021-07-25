@@ -27,7 +27,7 @@ public class MySQL {
 					"jdbc:mysql://" + this.db.getHost() + ":" + this.db.getPort() +
 							"/" + this.db.getAuthDatabase() + "?useSSL=false",
 					this.db.getUsername(), db.getPassword());
-			plugin.getLogger().info(Color.colorize(db.getSuccessMessage()));
+			plugin.getLogger().info(Color.colorize(this.plugin.getConfiguration().getString("MESSAGE_DB_SUCCESS")));
 		}
 	}
 
@@ -35,7 +35,7 @@ public class MySQL {
 		if(isConnected()) {
 			try {
 				connection.close();
-				plugin.getLogger().info(Color.colorize(db.getCloseDatabase()));
+				plugin.getLogger().info(Color.colorize(this.plugin.getConfiguration().getString("MESSAGE_DB_DISCONNECT")));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

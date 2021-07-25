@@ -7,9 +7,8 @@ import java.io.File;
 
 public class ConfigPlayer {
 
-	private static DailyReward plugin = DailyReward.getInstance();
+	private static final DailyReward plugin = DailyReward.getInstance();
 
-	/** Returns a player configuration file. **/
 	public static Yaml getPlayer(Player player) {
 		return new Yaml(plugin.getDataFolder().getAbsolutePath() + File.separator + "playerdata" + File.separator + player.getUniqueId() + ".yml");
 	}

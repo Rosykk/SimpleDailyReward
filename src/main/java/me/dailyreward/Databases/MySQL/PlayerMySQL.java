@@ -14,47 +14,47 @@ public class PlayerMySQL {
 	private final DailyReward plugin = DailyReward.getInstance();
 
 	public void dropTable() throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("DELETE FROM `dailyreward`");
+		PreparedStatement ps = this.plugin.getDatabase().getMySQL().getConnection().prepareStatement("DELETE FROM `dailyreward`");
 		ps.executeUpdate();
 	}
 
 	public void removePlayer(String string) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("DELETE FROM `dailyreward` WHERE player=?");
+		PreparedStatement ps = this.plugin.getDatabase().getMySQL().getConnection().prepareStatement("DELETE FROM `dailyreward` WHERE player=?");
 		ps.setString(1, string);
 		ps.executeUpdate();
 	}
 
 	public boolean playerExists(String name) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("SELECT * FROM `dailyreward` WHERE player=?");
+		PreparedStatement ps = this.plugin.getDatabase().getMySQL().getConnection().prepareStatement("SELECT * FROM `dailyreward` WHERE player=?");
 		ps.setString(1, name);
 
 		ResultSet rs = ps.executeQuery();
 
 		int i = 0;
-		while(rs.next()) i++;
+		while (rs.next()) i++;
 
 		return i > 0;
 	}
 
 	public void updateTime(String name, long time, Player player) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET `" + name + "` = ? WHERE player=?");
+		PreparedStatement ps = this.plugin.getDatabase().getMySQL().getConnection().prepareStatement("UPDATE `dailyreward` SET `" + name + "` = ? WHERE player=?");
 		ps.setLong(1, time);
 		ps.setString(2, player.getName());
 		ps.executeUpdate();
 	}
 
 	public void insertPlayer(Player player) throws SQLException {
-		PreparedStatement ps = plugin.getDb().getMySQL().getConnection().prepareStatement("SELECT * FROM `dailyreward` WHERE player=?");
+		PreparedStatement ps = this.plugin.getDatabase().getMySQL().getConnection().prepareStatement("SELECT * FROM `dailyreward` WHERE player=?");
 		ps.setString(1, player.getName());
 
 		ResultSet rs = ps.executeQuery();
 
 		int i = 0;
-		while(rs.next()) i++;
+		while (rs.next()) i++;
 
-		switch(i) {
+		switch (i) {
 			case 0:
-				ps = plugin.getDb().getMySQL().getConnection().prepareStatement("INSERT INTO `dailyreward` (`player`) VALUES (?)");
+				ps = this.plugin.getDatabase().getMySQL().getConnection().prepareStatement("INSERT INTO `dailyreward` (`player`) VALUES (?)");
 				ps.setString(1, player.getName());
 				ps.executeUpdate();
 		}

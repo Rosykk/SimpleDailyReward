@@ -32,7 +32,6 @@ public class RewardPurge extends BaseCommand {
 				Color.sendMessage("MESSAGE_ARGS_PURGE", player);
 		}
 
-		Color.sendMessage(plugin.getPrefix() + plugin.getCfg().getString("MESSAGE_SUCCESS_PURGE"), player);
+		Color.sendMessage(plugin.getPrefix() + plugin.getConfiguration().getString("MESSAGE_SUCCESS_PURGE"), player);
 	}
-
 }

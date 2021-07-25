@@ -1,24 +1,24 @@
 package me.dailyreward.Configuration;
 
-import java.io.File;
-import java.io.IOException;
-
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.YamlConfigurationOptions;
 
-public class Yaml
-{
+import java.io.File;
+import java.io.IOException;
 
-	private File file;
-	private YamlConfiguration yaml = new YamlConfiguration();
+public class Yaml {
+
+	private final File file;
+	private final YamlConfiguration yaml = new YamlConfiguration();
 
 	public Yaml(File file) {
 		this.file = file;
 
-		if(!file.exists()) {
+		if (!file.exists()) {
 			try {
 				file.createNewFile();
-			} catch(IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -28,25 +28,38 @@ public class Yaml
 	public Yaml(String path) {
 		this.file = new File(path);
 
-		if(!file.exists()) {
+		if (!file.exists()) {
 			try {
 				file.createNewFile();
-			} catch(IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		this.load();
 	}
 
-	private void load() {
+	public void remove() {
 		try {
 			this.yaml.load(this.file);
-		} catch(Exception e) {
+			this.file.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/** Save the Yaml data to the file passed in the constructor. **/
+	private void load() {
+		try {
+			this.yaml.load(this.file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Save the Yaml data to the file passed in the constructor.
+	 **/
 	public void save()
 	{
 		try {
@@ -63,10 +76,6 @@ public class Yaml
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void dropFolder() {
-
 	}
 
 	/** Get an Integer from the given path. **/

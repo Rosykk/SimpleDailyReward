@@ -3,10 +3,12 @@ package me.dailyreward;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.dailyreward.Commands.CommandFramework;
-import me.dailyreward.Commands.CommandList.*;
+import me.dailyreward.Commands.CommandList.Reward;
+import me.dailyreward.Commands.CommandList.RewardReload;
+import me.dailyreward.Commands.CommandList.RewardRemove;
 import me.dailyreward.Configuration.Config;
 import me.dailyreward.Databases.Database;
-import me.dailyreward.Events.JoinEvent;
+import me.dailyreward.Utils.Time;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -18,51 +20,50 @@ public final class DailyReward extends JavaPlugin {
 	@Getter
 	private static DailyReward instance;
 	private CommandFramework framework;
-	private Config cfg;
-	private Database db;
+	private Config configuration;
+	private Database database;
+	private Time time;
 
 	@SneakyThrows
 	@Override
 	public void onEnable() {
-		/* Sets plugin to main class (this) */
+		/** Sets plugin to main class (this) **/
 		instance = this;
 
-		/* Load all local configurations */
-		cfg = new Config(this);
-		cfg.loadConfiguration();
+		/** Load all local configurations **/
+		configuration = new Config(this);
+		configuration.loadConfiguration();
 
-		/* Register events */
-		new JoinEvent(instance);
+		/** Register events **/
+		//new JoinEvent(instance);
 
-		/* MongoDB **/
-		/* Cleaner debug */
+		/** MongoDB **/
 		System.setProperty("DEBUG.GO", "true");
 		System.setProperty("DB.TRACE", "true");
 		Logger mongoLobber = Logger.getLogger("org.mongodb.driver");
 		mongoLobber.setLevel(Level.WARNING);
 
-		/* Connection */
-		db = new Database();
-		db.connect();
+		/** Connection **/
+		database = new Database();
+		database.connect();
 
-		/* Command framework implementation */
+		time = new Time();
+
+		/** Command framework implementation **/
 		framework = new CommandFramework(this);
 		framework.registerCommands(new Reward());
-		framework.registerCommands(new RewardAmazing());
-		framework.registerCommands(new RewardLion());
-		framework.registerCommands(new RewardCruel());
 		framework.registerCommands(new RewardReload());
-		framework.registerCommands(new RewardPurge());
 		framework.registerCommands(new RewardRemove());
 		framework.registerHelp();
 	}
 
 	@Override
 	public void onDisable() {
-		db.disconnect();
+		database.disconnect();
 	}
 
 	public String getPrefix() {
-		return (getCfg().getBoolean("ENABLE_PREFIX")) ? getCfg().getString("PREFIX") : "";
+		if (getConfiguration().getBoolean("ENABLE_PREFIX")) return getConfiguration().getString("PREFIX");
+		return "";
 	}
 }

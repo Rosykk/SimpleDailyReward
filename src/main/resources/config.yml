@@ -32,7 +32,6 @@ PERMISSION_ADMIN_ONLY: "reward.admin"
 # Plugin messages
 MESSAGE_SUCCESS: "&9Successfully claimed your &edaily reward"
 MESSAGE_NOT_YET: "&9You can not claim your daily reward yet. &9Wait for another &a%time%&9."
-MESSAGE_DB_SUCCESS: "&aSuccessfully connected to MySQL."
 MESSAGE_SUCCESS_REMOVE: "&aSuccessfully removed player data!"
 MESSAGE_SUCCESS_PURGE: "&aSuccessfully purged player data!"
 MESSAGE_ERROR: "&cError! If you see this message, you probably messed something up in your config.yml"
@@ -41,7 +40,11 @@ MESSAGE_ARGS_REWARD: "&9Correct usage &a/reward &9or &a/reward <VIP name>"
 MESSAGE_ARGS_PURGE: "&9Correct usage &a/reward purge <MySQL, MongoDB>"
 MESSAGE_ARGS_REMOVE: "&9Correct usage &a/reward remove <player>"
 MESSAGE_NO_PLAYER: "&9This player &cis not &9in that database!"
-MESSAGE_CLOSE_DATABASE: "&aClosing database connection!"
+MESSAGE_WRONG_TYPE: "&cWrong data type in config.yml!"
+MESSAGE_DB_DISCONNECT: "&aClosing database connection!"
+MESSAGE_DB_SUCCESS: "&aSuccessfully connected to database."
+MESSAGE_DB_ERROR: "&cThere was an error with chosen database!"
+
 
 # -------- Plugin configuration --------
 # Important stuff

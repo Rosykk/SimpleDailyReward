@@ -1,4 +1,4 @@
-package me.dailyreward.Events;
+/*package me.dailyreward.Events;
 
 import me.dailyreward.Configuration.ConfigPlayer;
 import me.dailyreward.Configuration.Yaml;
@@ -25,7 +25,7 @@ public class JoinEvent implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {
 		Player player = event.getPlayer();
 
-		switch (this.plugin.getCfg().getString("DATABASE")) {
+		switch (this.plugin.getConfiguration().getString("DATABASE")) {
 			case "MONGODB":
 				break;
 			case "MYSQL":
@@ -41,8 +41,7 @@ public class JoinEvent implements Listener {
 				playerConfig.add("CRUEL", 0);
 
 				playerConfig.save(); // Save data
-			default:
-				plugin.getLogger().info(this.plugin.getCfg().getString("MESSAGE_WRONG_TYPE"));
 		}
 	}
 }
+*/

@@ -17,7 +17,6 @@ public class MongoDB {
     private final Database db = new Database();
 
     /* Connection to MongoDB */
-    private final boolean enabled = this.plugin.getConfiguration().getBoolean(this.plugin.getConfiguration().getString("DATABASE.MONGODB"));
     private MongoClient mongoClient;
     private MongoDatabase mongoDatabase;
     private MongoCollection<Document> mongoCollection;
@@ -26,7 +25,7 @@ public class MongoDB {
         try {
             MongoClientURI uri = new MongoClientURI(
                     "mongodb://" + this.db.getUsername() + ":"
-                            + this.db.getPassword() + "@" + this.db.getHost() + ":"
+                            + this.db.getMongoPassword() + "@" + this.db.getHost() + ":"
                             + this.db.getPort() + "/?authSource=" + db.getAuthDatabase());
 
             mongoClient = new MongoClient(uri);
@@ -42,6 +41,6 @@ public class MongoDB {
 
     public void disconnect() {
         mongoClient.close();
-        plugin.getLogger().info(Color.colorize(plugin.getConfiguration().getString(this.plugin.getConfiguration().getString("MESSAGE_DB_DISCONNECT"))));
+        plugin.getLogger().info(Color.colorize(this.plugin.getConfiguration().getString("MESSAGE_DB_DISCONNECT")));
     }
 }

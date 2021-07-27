@@ -30,7 +30,13 @@ public class JoinEvent implements Listener {
 			case "MONGODB":
 				this.plugin.getProfileManager().handleProfileCreation(player.getUniqueId(), player.getName());
 				Profile profile = this.plugin.getProfileManager().getProfile(player.getUniqueId());
-				profile.getPlayerData().load("s");
+
+				profile.getPlayerData().getTime().setTime(0);
+
+				profile.getPlayerData().save("DEFAULT");
+				profile.getPlayerData().save("AMAZING");
+				profile.getPlayerData().save("LION");
+				profile.getPlayerData().save("CRUEL");
 				break;
 			case "MYSQL":
 				PlayerMySQL playerData = new PlayerMySQL();

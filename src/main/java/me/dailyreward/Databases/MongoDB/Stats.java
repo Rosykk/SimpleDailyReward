@@ -2,22 +2,22 @@ package me.dailyreward.Databases.MongoDB;
 
 public class Stats {
 
-	private int time;
+	private long time;
 
 	/* MongoDB time */
-	public void incereaseTime(int time) {
+	public void increaseTime(long time) {
 		this.time += time;
 	}
 
-	public void decreaseTime(int time) {
+	public void decreaseTime(long time) {
 		this.time += time;
 	}
 
-	public int getAmount() {
+	public long getAmount() {
 		return this.time;
 	}
 
-	public void setTime(int time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 }

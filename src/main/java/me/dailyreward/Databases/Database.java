@@ -72,6 +72,7 @@ public class Database {
 		}
 	}
 
+	// TODO PUBLIC
 	private void loadMongo() {
 		mongoDB = new MongoDB();
 		mongoDB.connect();

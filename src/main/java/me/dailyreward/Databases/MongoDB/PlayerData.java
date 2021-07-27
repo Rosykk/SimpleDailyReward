@@ -9,17 +9,17 @@ import org.bson.Document;
 import java.util.UUID;
 
 @Getter
-public class PlayerMongo {
+public class PlayerData {
 
-	private DailyReward plugin = DailyReward.getInstance();
-	private MongoDB mongoDB = new MongoDB();
+	private final DailyReward plugin = DailyReward.getInstance();
+	private final MongoDB mongoDB = new MongoDB();
 
-	private UUID UUID;
-	private String playerName;
+	private final UUID UUID;
+	private final String playerName;
 
-	private Stats time = new Stats();
+	private final Stats time = new Stats();
 
-	public PlayerMongo(UUID uuid, String playerName) {
+	public PlayerData(UUID uuid, String playerName) {
 		this.UUID = uuid;
 		this.playerName = playerName;
 	}
@@ -28,21 +28,21 @@ public class PlayerMongo {
 		this.time.setTime(0);
 	}
 
-	public void load() {
+	public void load(String string) {
 		Document document = mongoDB.getMongoCollection().find(Filters.eq("uuid", getUUID().toString())).first();
 
-		if(document != null) {
-			this.time.setTime(document.getInteger("rewardTime"));
+		if (document != null) {
+			this.time.setTime(document.getInteger(string));
 		}
 	}
 
-	public void save() {
+	public void save(String string) {
 		Document document = new Document();
 		document.put("name", getPlayerName().toLowerCase());
 		document.put("realName", getPlayerName());
 		document.put("uuid", getUUID().toString());
-		document.put("rewardTime", this.time.getAmount());
-		mongoDB.getMongoCollection().replaceOne(Filters.eq("uuid", getUUID().toString()), document, new UpdateOptions());
+		document.put(string, this.time.getAmount());
+		mongoDB.getMongoCollection().replaceOne(Filters.eq("uuid", getUUID().toString()), document, new UpdateOptions().upsert(true));
 	}
 
 }

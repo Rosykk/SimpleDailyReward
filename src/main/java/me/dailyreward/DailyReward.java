@@ -8,6 +8,8 @@ import me.dailyreward.Commands.CommandList.RewardReload;
 import me.dailyreward.Commands.CommandList.RewardRemove;
 import me.dailyreward.Configuration.Config;
 import me.dailyreward.Databases.Database;
+import me.dailyreward.Databases.MongoDB.ProfileManager;
+import me.dailyreward.Events.JoinEvent;
 import me.dailyreward.Utils.Time;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 @Getter
 public final class DailyReward extends JavaPlugin {
 
+	private ProfileManager profileManager;
 	@Getter
 	private static DailyReward instance;
 	private CommandFramework framework;
@@ -35,7 +38,7 @@ public final class DailyReward extends JavaPlugin {
 		configuration.loadConfiguration();
 
 		/** Register events **/
-		//new JoinEvent(instance);
+		new JoinEvent(instance);
 
 		/** MongoDB **/
 		System.setProperty("DEBUG.GO", "true");
@@ -47,6 +50,7 @@ public final class DailyReward extends JavaPlugin {
 		database = new Database();
 		database.connect();
 
+		profileManager = new ProfileManager(this);
 		time = new Time();
 
 		/** Command framework implementation **/

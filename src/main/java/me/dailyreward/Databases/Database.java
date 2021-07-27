@@ -51,7 +51,6 @@ public class Database {
 				mySQL.disconnect();
 				break;
 			default:
-				this.plugin.getLogger().info("");
 				this.plugin.getPluginLoader().disablePlugin(plugin);
 		}
 	}

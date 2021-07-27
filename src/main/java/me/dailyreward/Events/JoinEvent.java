@@ -1,8 +1,9 @@
-/*package me.dailyreward.Events;
+package me.dailyreward.Events;
 
 import me.dailyreward.Configuration.ConfigPlayer;
 import me.dailyreward.Configuration.Yaml;
 import me.dailyreward.DailyReward;
+import me.dailyreward.Databases.MongoDB.Profile;
 import me.dailyreward.Databases.MySQL.PlayerMySQL;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,21 +28,23 @@ public class JoinEvent implements Listener {
 
 		switch (this.plugin.getConfiguration().getString("DATABASE")) {
 			case "MONGODB":
+				this.plugin.getProfileManager().handleProfileCreation(player.getUniqueId(), player.getName());
+				Profile profile = this.plugin.getProfileManager().getProfile(player.getUniqueId());
+				profile.getPlayerData().load("s");
 				break;
 			case "MYSQL":
 				PlayerMySQL playerData = new PlayerMySQL();
 				playerData.insertPlayer(player);
 				break;
 			case "LOCAL":
-				playerConfig = ConfigPlayer.getPlayer(player); // Get local path
+				playerConfig = ConfigPlayer.getPlayer(player);
 
 				playerConfig.add("DEFAULT", 0);
 				playerConfig.add("AMAZING", 0);
 				playerConfig.add("LION", 0);
 				playerConfig.add("CRUEL", 0);
 
-				playerConfig.save(); // Save data
+				playerConfig.save();
 		}
 	}
 }
-*/

@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public class ConfigManager {
+public final class ConfigManager {
 
 	private static DailyReward plugin = DailyReward.getInstance();
 
@@ -18,6 +18,7 @@ public class ConfigManager {
 	public static void setup() {
 		// if config.yml does not exit, create one
 		CONFIG = new File(plugin.getDataFolder(), "config.yml");
+
 		if(!CONFIG.exists()) {
 			try {
 				plugin.saveResource("config.yml", false);

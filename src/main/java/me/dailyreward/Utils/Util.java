@@ -2,7 +2,7 @@ package me.dailyreward.Utils;
 
 import me.dailyreward.Commands.CommandArgs;
 
-public class Util {
+public final class Util {
 
     public static boolean argLength(CommandArgs args, int max) {
         return args.length() >= max;

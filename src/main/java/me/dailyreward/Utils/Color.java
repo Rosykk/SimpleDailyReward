@@ -3,7 +3,7 @@ package me.dailyreward.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-public class Color {
+public final class Color {
 
 	public static String colorize(String s) {
 		return ChatColor.translateAlternateColorCodes('&', s);

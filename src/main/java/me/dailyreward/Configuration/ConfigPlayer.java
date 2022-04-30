@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 
-public class ConfigPlayer {
+public final class ConfigPlayer {
 
 	private static final DailyReward plugin = DailyReward.getInstance();
 

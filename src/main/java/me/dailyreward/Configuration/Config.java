@@ -1,7 +1,10 @@
 package me.dailyreward.Configuration;
 
 import me.dailyreward.DailyReward;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.List;
@@ -21,7 +24,6 @@ public class Config {
         ConfigManager.setup();
     }
 
-
     public void createFolder() throws SecurityException {
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
@@ -31,7 +33,7 @@ public class Config {
     public void createData() {
         File data = new File(plugin.getDataFolder(), "playerdata");
 
-        if (!data.exists()) {
+        if ( !data.exists() ) {
             data.mkdir();
         }
     }
@@ -44,6 +46,8 @@ public class Config {
         return getConfig().getString(s);
     }
 
+    public long getLong(String s) { return getConfig().getLong(s); }
+
     public Boolean getBoolean(String s) {
         return getConfig().getBoolean(s);
     }
@@ -51,4 +55,6 @@ public class Config {
     public List<String> getStringList(String s) {
         return getConfig().getStringList(s);
     }
+
+    public @NotNull ConfigurationSection getSection(String s) { return getConfig().getDefaultSection(); }
 }

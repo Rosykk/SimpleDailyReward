@@ -6,10 +6,10 @@
 # color codes are supported, for example &a, HEX codes are allowed too.
 # commands needs to be written without the slash char (  /  )
 
-# --------------- Database ----------------
+# --------------- Database -----------------
 # Options: LOCAL, MYSQL
 
-DATABASE: LOCAL
+DATABASE: 'LOCAL'
 CREDENTIALS:
   USERNAME: ''
   PASSWORD: ''
@@ -17,7 +17,7 @@ CREDENTIALS:
   HOST: 127.0.0.1
   PORT: 3306
 
-# -------------- Language --------------
+# ---------------- Language ----------------
 
 # CommandAPI messages
 MESSAGE_NOT_ENOUGH_PERMISSIONS: "&9Not enough &cpermissions&9!"
@@ -25,7 +25,7 @@ MESSAGE_PLAYER_ONLY: "&cThis command can not be performed in console!"
 MESSAGE_CONSOLE_ONLY: "&cThis command can not be performed in game!"
 MESSAGE_RELOAD: "&9Successfully reloaded all configurations."
 
-# Permissions
+# -------------- Permissions ---------------
 # Permission for reload, purge and remove command
 PERMISSION_ADMIN_ONLY: "reward.admin"
 
@@ -39,12 +39,12 @@ MESSAGE_ERROR_TABLES: "&cAn error has occured while creating tables (MySQL)"
 MESSAGE_ARGS_REWARD: "&9Correct usage &a/reward &9or &a/reward <VIP name>"
 MESSAGE_ARGS_PURGE: "&9Correct usage &a/reward purge <MySQL, MongoDB>"
 MESSAGE_ARGS_REMOVE: "&9Correct usage &a/reward remove <player>"
+MESSAGE_ARGS_ERROR: "&cWrong usage of the command! Did you mean to use &4%command%?"
 MESSAGE_NO_PLAYER: "&9This player &cis not &9in that database!"
 MESSAGE_WRONG_TYPE: "&cWrong data type in config.yml!"
 MESSAGE_DB_DISCONNECT: "&aClosing database connection!"
 MESSAGE_DB_SUCCESS: "&aSuccessfully connected to database."
 MESSAGE_DB_ERROR: "&cThere was an error with chosen database!"
-
 
 # -------- Plugin configuration --------
 # Important stuff
@@ -89,3 +89,19 @@ CRUEL_REWARD:
   COMMANDS:
     - "eco give %player% 200"
     - "give %player% diamond 2"
+
+# Experimental
+REWARDS:
+  DEFAULT:
+    PERMISSION: "reward.default"
+    MESSAGE: "&aYou've received your daily reward."
+    COMMANDS:
+      - "eco give %player% 200"
+      - "give %player% coal 2"
+
+  AMAZING:
+    PERMISSION: "reward.amazing"
+    MESSAGE: "&aYou've received your premium (&2Amazing&a) daily reward."
+    COMMANDS:
+      - "eco give %player% 200"
+      - "give %player% iron_ingot 2"

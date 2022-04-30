@@ -18,7 +18,6 @@ public class RewardRemove extends BaseCommand {
 
 	private final PlayerMySQL playerMySQL = new PlayerMySQL();
 	private final Config config = DailyReward.getInstance().getConfiguration();
-	private Yaml playerConfig;
 
 	@Override
 	@Command(name = "reward.remove", isAdminOnly = true, isGameOnly = false)
@@ -26,19 +25,28 @@ public class RewardRemove extends BaseCommand {
 		Player player = args.getPlayer();
 		Player target = Bukkit.getPlayerExact(args.getArgs(1));
 
-		//TODO check for args
+		if ( args.length() > 1 ) {
+			Color.sendMessage(config.getString("MESSAGE_ARGS_ERROR").replace("%command%", "/reward remove"), player);
+			return;
+		}
 
-		switch (args.getArgs(0).toLowerCase()) {
-			case "mongodb":
-				break;
-			case "mysql":
+		switch (args.getArgs(0).toUpperCase()) {
+			case "MYSQL" -> {
 				removeMySQL(args.getArgs(1), player);
-				Color.sendMessage("MESSAGE_SUCCESS_REMOVE", player);
-				break;
-			case "local":
-				playerConfig = ConfigPlayer.getPlayer(target);
-				playerConfig.delete();
-				break;
+				Color.sendMessage(config.getString("MESSAGE_SUCCESS_REMOVE"), player);
+			}
+			case "LOCAL" -> {
+				// TODO may not work
+				Yaml playerConfig = ConfigPlayer.getPlayer(target);
+
+				if ( playerConfig.toString() != null ) {
+					playerConfig.delete();
+					Color.sendMessage(config.getString("MESSAGE_SUCCESS_REMOVE"), player);
+				}
+				else {
+					Color.sendMessage(config.getString("MESSAGE_NO_PLAYER"), player);
+				}
+			}
 		}
 	}
 

@@ -1,6 +1,7 @@
 name: DailyReward
 version: ${project.version}
 main: me.dailyreward.DailyReward
-api-version: 1.16
+api-version: 1.18
 authors: [ Rosykk ]
 description: Daily reward
+softdepend: [PlaceholderAPI]

@@ -10,7 +10,6 @@ default reward: /reward
 help command: /reward help
 reload config: /reward reload
 purge database: /reward purge <MySQL>
-
 ```
 
 There are no known issues, I already recoded it and cleaned up the code. It is fully worrking and customizable. 

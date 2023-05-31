@@ -13,5 +13,3 @@ purge database: /reward purge <MySQL>
 ```
 
 There are no known issues, I already recoded it and cleaned up the code. It is fully worrking and customizable. 
-
-If you need further support, hit me up on Discord - Rosykk#6330 or Rosykk#1337 
